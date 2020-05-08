@@ -1,4 +1,4 @@
-import pyperclip, animepahePortal
+import pyperclip, animepaheLink, webbrowser
 from jikanpy import Jikan
 jikan = Jikan()
 
@@ -9,7 +9,7 @@ try:
     search_result = jikan.anime(MALid)
     title = search_result['title']
 
-    pyperclip.copy(animepahePortal.getAnimePahe(title))
+    webbrowser.open(animepaheLink.getAnimePahe(title))
 
 except IndexError as error:
     print('Link is invalid. Please try again.')
