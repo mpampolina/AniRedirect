@@ -1,22 +1,30 @@
-import pyperclip, animepaheLink, webbrowser, re
+import pyperclip, webbrowser, re
+import animepaheLink, anilistLink
 from jikanpy import Jikan
 jikan = Jikan()
 
 animeFallback = 'https://animepahe.com'
 
 MALRegex = re.compile(r'''
-https://myanimelist.net/anime/
+myanimelist.net/anime/
+''', re.VERBOSE)
+
+anilistRegex = re.compile(r'''
+anilist.co/anime/
 ''', re.VERBOSE)
 
 try:
-    MALaddress = pyperclip.paste()
+    address = pyperclip.paste()
 
-    if bool(MALRegex.search(MALaddress)):   # check if the link is MAL
-        MALid = MALaddress.split('/')[4]
-
+    if bool(MALRegex.search(address)):   # check if the link is MAL
+        MALid = address.split('/')[4]
         search_result = jikan.anime(MALid)
         title = search_result['title']
+        webbrowser.open(animepaheLink.getAnimePahe(title))
 
+    elif bool(anilistRegex.search(address)):    # check if the link is Anilist
+        ALid = address.split('/')[4]
+        title = anilistLink.anilistTitle(ALid)
         webbrowser.open(animepaheLink.getAnimePahe(title))
 
     else:
