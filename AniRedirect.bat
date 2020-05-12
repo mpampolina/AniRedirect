@@ -1,1 +1,1 @@
-@ py.exe d:\AniRedirect\AniRedirect.py %*
+start /min python.exe D:\AniRedirect\AniRedirect.py %*
